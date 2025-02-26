@@ -336,3 +336,20 @@ footer {
 .red {
     color: #ff0000;
 }
+
+#Loading {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #eeeeee4f;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 900;
+}
+
+#Loading img {
+    width: 120px;
+}
