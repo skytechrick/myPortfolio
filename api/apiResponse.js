@@ -17,13 +17,15 @@ export const apiResponse = async ( req , res , next ) => {
 
         const { name, mobileNumber, email, type, message } = validData.data;
 
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        
         const newApiResponse = new apiResponseModel({
             name,
             mobileNumber,
             email,
             type,
             message,
-            ip: req.ip,
+            ip,
             agent: req.headers['user-agent'],
             referer: req.headers['referer'],
             src: req.params.src || undefined,
