@@ -32,10 +32,9 @@ export const apiResponse = async ( req , res , next ) => {
         await newApiResponse.save();
 
         const mailData = {
-            email: process.env.EMAIL_USER,
+            email: process.env.EMAIL_TO,
             subject: "New Response Received - Your portfolio - Rick Sarkar",
             html: `
-                    <!DOCTYPE html>
                     <html lang="en">
                     <head>
                         <meta charset="UTF-8">
@@ -53,9 +52,9 @@ export const apiResponse = async ( req , res , next ) => {
                             <strong>Email:</strong> ${email} <br>
                             <strong>Type:</strong> ${type} <br>
                             <strong>Message:</strong> ${message.replace(/\n/g, '<br>')} <br>
-                            <strong>IP:</strong> ${req.ip} <br>
-                            <strong>Agent:</strong> ${req.headers['user-agent']} <br>
-                            <strong>Referer:</strong> ${req.headers['referer']} <br>
+                            <strong>IP:</strong> ${req.ip || "IP not found"} <br>
+                            <strong>Agent:</strong> ${req.headers['user-agent'] || "Not found"} <br>
+                            <strong>Referer:</strong> ${req.headers['referer'] || "Not found"} <br>
                             <strong>Source:</strong> ${req.params.src || "Not added"} <br>
                             <strong>Time:</strong> ${new Date().toLocaleString()} <br>
                         </div>

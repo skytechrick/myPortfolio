@@ -1,27 +1,34 @@
 import nodemailer from 'nodemailer';
+import { configDotenv } from 'dotenv';
+configDotenv();
 
-export default async (email, subject, html) => {
+
+
+
+export default async ({ email , subject , html }) => {
     try {
         const transporter = nodemailer.createTransport({
             host: process.env.MAIL_HOST,
-            port: process.env.MAIL_PORT,
-            secure: process.env.MAIL_PORT === 465,
+            port: parseInt(process.env.MAIL_PORT, 10),
+            secure: parseInt(process.env.MAIL_PORT, 10) === 465? true : false,
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PASS,
             },
         });
 
+        
         const mailOptions = {
-            from: "New response <" + process.env.MAIL_USER + ">",
+            from: `New-Response <${process.env.MAIL_USER}>`,
             to: email,
             subject: subject,
             html,
         };
-
-        await transporter.sendMail(mailOptions);
+        
+        const a = await transporter.sendMail(mailOptions);
         return true;
     } catch (error) {
+        console.log(error);
         return null;
     };
 }
