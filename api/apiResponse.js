@@ -58,7 +58,7 @@ export const apiResponse = async ( req , res , next ) => {
                             <strong>Agent:</strong> ${req.headers['user-agent'] || "Not found"} <br>
                             <strong>Referer:</strong> ${req.headers['referer'] || "Not found"} <br>
                             <strong>Source:</strong> ${req.params.src || "Not added"} <br>
-                            <strong>Time:</strong> ${new Date().toLocaleString()} <br>
+                            <strong>Time:</strong> ${new Date().toLocaleString("en-IN")} <br>
                         </div>
                     </body>
                     </html>
