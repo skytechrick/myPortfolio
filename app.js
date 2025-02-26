@@ -2,9 +2,15 @@ import express from 'express';
 import { configDotenv } from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+import dbConnect from './config/dbConnect.js';
+import { apiResponse } from './api/apiResponse.js';
+import { apiRateLimiter } from "./utils/rateLimiter.js";
 configDotenv();
 
+dbConnect();
+
 const app = express();
+
 
 app.use(express.static(path.join(process.cwd(), '/public')));
 
@@ -13,8 +19,11 @@ const home = async ( req , res , next ) => {
     return res.status(200).send(html);
 };
 
+app.post("/api/response" , apiRateLimiter , apiResponse);
+
 app.get('/' , home);
 app.get("*" , home);
+
 
 // app.listen(80, () => console.log('Server is running on port 80'));
 export default app;
